@@ -11,7 +11,6 @@ import java.util.List;
 public class Parser {
     private static final ExpressionParser[] registeredExpressionParser = {new DiffExpressionParser(),
                                                                           new LetExpressionParser(),
-                                                                          new FunctionDefineExpressionParser(),
                                                                           new FunctionCallExpressionParser(),
                                                                           new NumberExpressionParser(),
                                                                           new VariableExpressionParser(),};

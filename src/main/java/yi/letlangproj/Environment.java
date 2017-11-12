@@ -1,25 +1,24 @@
 package yi.letlangproj;
 
-import java.util.Objects;
+import java.util.Map;
 
 public class Environment {
-    private final String name;
-    private final Expression expression;
+    private final Map<String, Expression> map;
     private final Environment[] parentEnvironments;
 
-    public Environment(String name, Expression expression, Environment... parentEnvironments) {
-        this.name = name;
-        this.expression = expression;
+    public Environment(Map<String, Expression> map, Environment... parentEnvironments) {
+        this.map = map;
         this.parentEnvironments = parentEnvironments;
     }
 
     public Expression get(String name) {
-        if(Objects.equals(name, this.name)) {
+        Expression expression = map.get(name);
+        if(expression != null) {
             return expression;
         }
         if(parentEnvironments != null) {
             for(Environment parentEnvironment : parentEnvironments) {
-                Expression expression = parentEnvironment.get(name);
+                expression = parentEnvironment.get(name);
                 if(expression != null) {
                     return expression;
                 }

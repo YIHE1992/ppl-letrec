@@ -15,6 +15,6 @@ public class VariableExpression implements Expression {
 
     @Override
     public int evaluate(Environment environment) {
-        return 0;
+        return environment.get(name).evaluate(environment);
     }
 }

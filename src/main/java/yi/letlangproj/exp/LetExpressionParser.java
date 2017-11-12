@@ -4,6 +4,7 @@ import yi.letlangproj.ExpressionParser;
 import yi.letlangproj.ParseException;
 import yi.letlangproj.Token;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static yi.letlangproj.Parser.expectToken;
@@ -27,14 +28,37 @@ public class LetExpressionParser implements ExpressionParser {
         t = t.subList(1, t.size());
         expectToken(t, ASSIGN);
         t = t.subList(1, t.size());
-        ParseResult varValueExpressionParseResult = parseToExpression(t);
-        t = t.subList(varValueExpressionParseResult.getTokenLength(), t.size());
+        LinkedList<String> argNameList = new LinkedList<>();
+        try {
+            List<Token> tFunction = t;
+            expectToken(tFunction, PROC);
+            tFunction = tFunction.subList(1, tFunction.size());
+            expectToken(tFunction, LEFT_PARENTHESIS);
+            tFunction = tFunction.subList(1, tFunction.size());
+            try {
+                argNameList.add(expectToken(tFunction, IDENTIFIER).getData());
+                tFunction = tFunction.subList(1, tFunction.size());
+                while(true) {
+                    expectToken(tFunction, COMMA);
+                    tFunction = tFunction.subList(1, tFunction.size());
+                    argNameList.add(expectToken(tFunction, IDENTIFIER).getData());
+                    tFunction = tFunction.subList(1, tFunction.size());
+                }
+            } catch(ParseException ignored) {
+            }
+            expectToken(tFunction, RIGHT_PARENTHESIS);
+            t = tFunction.subList(1, tFunction.size());
+        } catch(ParseException e) {
+        }
+        ParseResult functionBodyExpressionParseResult = parseToExpression(t);
+        t = t.subList(functionBodyExpressionParseResult.getTokenLength(), t.size());
         expectToken(t, IN);
         t = t.subList(1, t.size());
         ParseResult letValueExpressionParseResult = parseToExpression(t);
         t = t.subList(letValueExpressionParseResult.getTokenLength(), t.size());
         return new ParseResult(new LetExpression(varNameToken.getData(),
-                                                 varValueExpressionParseResult.getExpression(),
+                                                 argNameList.toArray(new String[0]),
+                                                 functionBodyExpressionParseResult.getExpression(),
                                                  letValueExpressionParseResult.getExpression()), tokenList.size() - t.size());
     }
 }
