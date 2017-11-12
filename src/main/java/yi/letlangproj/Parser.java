@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class Parser {
     private static final ExpressionParser[] registeredExpressionParser = {new DiffExpressionParser(),
+                                                                          new IfExpressionParser(),
+                                                                          new IsZeroExpressionParser(),
                                                                           new LetExpressionParser(),
                                                                           new FunctionCallExpressionParser(),
                                                                           new NumberExpressionParser(),
