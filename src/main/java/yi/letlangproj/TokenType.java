@@ -9,6 +9,7 @@ public enum TokenType {
     RIGHT_PARENTHESIS("[)]"),
     COMMA("[,]"),
     MINUS("[-]"),
+    PLUS("[+]"),
     ASSIGN("[=]"),
     IS_ZERO("iszero"),
     IF("if"),
@@ -18,6 +19,7 @@ public enum TokenType {
     IN("in"),
     IDENTIFIER("-?[a-z]+"),
     PROC("proc"),
+    DOUBLE("double"),
     LET_REC("letrec"),
     WHITE_SPACE("[ \t \f \r \n]+"),;
     public final String pattern;

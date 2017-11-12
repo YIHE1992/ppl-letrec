@@ -13,7 +13,7 @@ import static yi.letlangproj.TokenType.WHITE_SPACE;
 
 public class Scanner {
     public static void main(String[] args) {
-        new Scanner().scanToTokenList("let x = 200\n").forEach(System.out::println);
+        new Scanner().scanToTokenList("letrec double (x) = if iszero(x) then 0 else +((double -(x, 1)), 2) in (double 6)\n").forEach(System.out::println);
     }
 
     public List<Token> scanToTokenList(String input) {
