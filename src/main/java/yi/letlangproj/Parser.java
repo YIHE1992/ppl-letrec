@@ -16,9 +16,9 @@ public class Parser {
                                                                           new NumberExpressionParser(),
                                                                           new VariableExpressionParser(),};
 
-    public static ParseResult parseToExpression(List<Token> tokenList, int start) throws ParseException {
+    public static ParseResult parseToExpression(List<Token> tokenList) throws ParseException {
         for(ExpressionParser parser : registeredExpressionParser) {
-            ParseResult expression = parser.parse(tokenList, start);
+            ParseResult expression = parser.parse(tokenList);
             if(expression != null) {
                 return expression;
             }
@@ -26,8 +26,8 @@ public class Parser {
         throw new ParseException("cannot parse to any expression");
     }
 
-    public static Token expectToken(List<Token> tokenList, final int start, TokenType tokenType) throws ParseException {
-        Token token = tokenList.get(start);
+    public static Token expectToken(List<Token> tokenList, TokenType tokenType) throws ParseException {
+        Token token = tokenList.get(0);
         if(token.getType() != tokenType) {
             throw new ParseException("token type [" + tokenType + "] expected but found [" + token + "]");
         }

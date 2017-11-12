@@ -15,20 +15,25 @@ import static yi.letlangproj.TokenType.*;
  */
 public class DiffExpressionParser implements ExpressionParser {
     @Override
-    public ParseResult parse(List<Token> tokenList, final int start) throws ParseException {
-        int len = 0;
+    public ParseResult parse(List<Token> tokenList) throws ParseException {
+        List<Token> t = tokenList;
         try {
-            expectToken(tokenList, start + len++, MINUS);
-            expectToken(tokenList, start + len++, LEFT_PARENTHESIS);
+            expectToken(t, MINUS);
+            t = t.subList(1, t.size());
+            expectToken(t, LEFT_PARENTHESIS);
+            t = t.subList(1, t.size());
         } catch(ParseException e) {
             return null;
         }
-        ParseResult expression0ParseResult = parseToExpression(tokenList, start + len);
-        len += expression0ParseResult.getTokenLength();
-        expectToken(tokenList, start + len++, COMMA);
-        ParseResult expression1ParseResult = parseToExpression(tokenList, start + len);
-        len += expression1ParseResult.getTokenLength();
-        expectToken(tokenList, start + len++, RIGHT_PARENTHESIS);
-        return new ParseResult(new DiffExpression(expression0ParseResult.getExpression(), expression1ParseResult.getExpression()), len);
+        ParseResult expression0ParseResult = parseToExpression(t);
+        t = t.subList(expression0ParseResult.getTokenLength(), t.size());
+        expectToken(t, COMMA);
+        t = t.subList(1, t.size());
+        ParseResult expression1ParseResult = parseToExpression(t);
+        t = t.subList(expression1ParseResult.getTokenLength(), t.size());
+        expectToken(t, RIGHT_PARENTHESIS);
+        t = t.subList(1, t.size());
+        return new ParseResult(new DiffExpression(expression0ParseResult.getExpression(), expression1ParseResult.getExpression()),
+                               tokenList.size() - t.size());
     }
 }

@@ -14,10 +14,10 @@ import static yi.letlangproj.TokenType.IDENTIFIER;
  */
 public class VariableExpressionParser implements ExpressionParser {
     @Override
-    public ParseResult parse(List<Token> tokenList, int start) throws ParseException {
+    public ParseResult parse(List<Token> tokenList) throws ParseException {
         Token token;
         try {
-            token = Parser.expectToken(tokenList, start, IDENTIFIER);
+            token = Parser.expectToken(tokenList, IDENTIFIER);
         } catch(ParseException e) {
             return null;
         }

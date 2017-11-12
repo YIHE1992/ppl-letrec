@@ -12,7 +12,7 @@ public interface ExpressionParser {
      * @return null if tokens does not matched, or a parse result
      * @throws ParseException when grammar is wrong
      */
-    ParseResult parse(List<Token> tokenList, int start) throws ParseException;
+    ParseResult parse(List<Token> tokenList) throws ParseException;
 
     class ParseResult {
         private final Expression expression;

@@ -14,10 +14,10 @@ import static yi.letlangproj.TokenType.INT;
  */
 public class NumberExpressionParser implements ExpressionParser {
     @Override
-    public ParseResult parse(List<Token> tokenList, int start) throws ParseException {
+    public ParseResult parse(List<Token> tokenList) throws ParseException {
         Token token;
         try {
-            token = expectToken(tokenList, start, INT);
+            token = expectToken(tokenList, INT);
         } catch(ParseException e) {
             return null;
         }

@@ -17,24 +17,28 @@ import static yi.letlangproj.TokenType.*;
  */
 public class FunctionCallExpressionParser implements ExpressionParser {
     @Override
-    public ParseResult parse(List<Token> tokenList, int start) throws ParseException {
-        int len = 0;
+    public ParseResult parse(List<Token> tokenList) throws ParseException {
+        List<Token> t = tokenList;
         try {
-            expectToken(tokenList, start + len++, LEFT_PARENTHESIS);
+            expectToken(t, LEFT_PARENTHESIS);
+            t = t.subList(1, t.size());
         } catch(ParseException e) {
             return null;
         }
-        Token functionNameToken = expectToken(tokenList, start + len++, IDENTIFIER);
+        Token functionNameToken = expectToken(t, IDENTIFIER);
+        t = t.subList(1, t.size());
         LinkedList<Expression> expressionList = new LinkedList<>();
         try {
             while(true) {
-                ParseResult parseResult = parseToExpression(tokenList, start + len);
-                len += parseResult.getTokenLength();
+                ParseResult parseResult = parseToExpression(t);
+                t = t.subList(parseResult.getTokenLength(), t.size());
                 expressionList.add(parseResult.getExpression());
             }
         } catch(ParseException ignored) {
         }
-        expectToken(tokenList, start + len++, RIGHT_PARENTHESIS);
-        return new ParseResult(new FunctionCallExpression(functionNameToken.getData(), expressionList.toArray(new Expression[0])), len);
+        expectToken(t, RIGHT_PARENTHESIS);
+        t = t.subList(1, t.size());
+        return new ParseResult(new FunctionCallExpression(functionNameToken.getData(), expressionList.toArray(new Expression[0])),
+                               tokenList.size() - t.size());
     }
 }

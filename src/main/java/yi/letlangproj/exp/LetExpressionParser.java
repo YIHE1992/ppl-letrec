@@ -15,22 +15,26 @@ import static yi.letlangproj.TokenType.*;
  */
 public class LetExpressionParser implements ExpressionParser {
     @Override
-    public ParseResult parse(List<Token> tokenList, final int start) throws ParseException {
-        int len = 0;
+    public ParseResult parse(List<Token> tokenList) throws ParseException {
+        List<Token> t = tokenList;
         try {
-            expectToken(tokenList, start + len++, LET);
+            expectToken(t, LET);
+            t = t.subList(1, t.size());
         } catch(ParseException e) {
             return null;
         }
-        Token varNameToken = expectToken(tokenList, start + len++, IDENTIFIER);
-        expectToken(tokenList, start + len++, ASSIGN);
-        ParseResult varValueExpressionParseResult = parseToExpression(tokenList, start + len);
-        len += varValueExpressionParseResult.getTokenLength();
-        expectToken(tokenList, start + len++, IN);
-        ParseResult letValueExpressionParseResult = parseToExpression(tokenList, start + len);
-        len += varValueExpressionParseResult.getTokenLength();
+        Token varNameToken = expectToken(t, IDENTIFIER);
+        t = t.subList(1, t.size());
+        expectToken(t, ASSIGN);
+        t = t.subList(1, t.size());
+        ParseResult varValueExpressionParseResult = parseToExpression(t);
+        t = t.subList(varValueExpressionParseResult.getTokenLength(), t.size());
+        expectToken(t, IN);
+        t = t.subList(1, t.size());
+        ParseResult letValueExpressionParseResult = parseToExpression(t);
+        t = t.subList(letValueExpressionParseResult.getTokenLength(), t.size());
         return new ParseResult(new LetExpression(varNameToken.getData(),
                                                  varValueExpressionParseResult.getExpression(),
-                                                 letValueExpressionParseResult.getExpression()), len);
+                                                 letValueExpressionParseResult.getExpression()), tokenList.size() - t.size());
     }
 }

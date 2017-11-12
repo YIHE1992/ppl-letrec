@@ -17,5 +17,4 @@ public class VariableExpression implements Expression {
     public int evaluate(Environment environment) {
         return 0;
     }
-
 }

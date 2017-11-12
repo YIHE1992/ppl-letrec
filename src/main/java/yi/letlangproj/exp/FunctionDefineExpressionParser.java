@@ -16,29 +16,33 @@ import static yi.letlangproj.TokenType.*;
  */
 public class FunctionDefineExpressionParser implements ExpressionParser {
     @Override
-    public ParseResult parse(List<Token> tokenList, int start) throws ParseException {
-        int len = 0;
+    public ParseResult parse(List<Token> tokenList) throws ParseException {
+        List<Token> t = tokenList;
         try {
-            expectToken(tokenList, start + len++, PROC);
+            expectToken(t, PROC);
+            t = t.subList(1, t.size());
         } catch(ParseException e) {
             return null;
         }
-        expectToken(tokenList, start + len++, LEFT_PARENTHESIS);
+        expectToken(t, LEFT_PARENTHESIS);
+        t = t.subList(1, t.size());
         LinkedList<String> argNameList = new LinkedList<>();
         try {
-            argNameList.add(expectToken(tokenList, start + len, IDENTIFIER).getData());
-            len++;
+            argNameList.add(expectToken(t, IDENTIFIER).getData());
+            t = t.subList(1, t.size());
             while(true) {
-                expectToken(tokenList, start + len, COMMA);
-                len++;
-                argNameList.add(expectToken(tokenList, start + len, IDENTIFIER).getData());
-                len++;
+                expectToken(t, COMMA);
+                t = t.subList(1, t.size());
+                argNameList.add(expectToken(t, IDENTIFIER).getData());
+                t = t.subList(1, t.size());
             }
         } catch(ParseException ignored) {
         }
-        expectToken(tokenList, start + len++, RIGHT_PARENTHESIS);
-        ParseResult functionBodyParseResult = parseToExpression(tokenList, start + len);
-        len += functionBodyParseResult.getTokenLength();
-        return new ParseResult(new FunctionDefineExpression(argNameList.toArray(new String[0]), functionBodyParseResult.getExpression()), len);
+        expectToken(t, RIGHT_PARENTHESIS);
+        t = t.subList(1, t.size());
+        ParseResult functionBodyParseResult = parseToExpression(t);
+        t = t.subList(functionBodyParseResult.getTokenLength(), t.size());
+        return new ParseResult(new FunctionDefineExpression(argNameList.toArray(new String[0]), functionBodyParseResult.getExpression()),
+                               tokenList.size() - t.size());
     }
 }
