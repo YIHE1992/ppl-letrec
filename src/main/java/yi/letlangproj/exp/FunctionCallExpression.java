@@ -2,7 +2,9 @@ package yi.letlangproj.exp;
 
 import yi.letlangproj.Environment;
 import yi.letlangproj.Expression;
-import yi.letlangproj.HavingArgs;
+
+import java.util.HashMap;
+import java.util.stream.IntStream;
 
 /**
  * @author sky91 - feitiandaxia1991@163.com
@@ -19,13 +21,8 @@ public class FunctionCallExpression implements Expression {
     @Override
     public int evaluate(Environment environment) {
         Expression closureExpression = environment.get(functionName);
-        if(closureExpression instanceof HavingArgs) {
-            HavingArgs havingArgs = (HavingArgs) closureExpression;
-            String[] argNames = havingArgs.getArgNames();
-            for(int i = 0; i < argNames.length; i++) {
-                havingArgs.setArg(argNames[i], new NumberExpression(args[i].evaluate(environment)));
-            }
-        }
-        return closureExpression.evaluate(environment);
+        HashMap<String, Expression> argMap = new HashMap<>();
+        IntStream.range(0, args.length).forEach(i -> argMap.put(String.valueOf(i), args[i]));
+        return closureExpression.evaluate(new Environment(argMap));
     }
 }

@@ -2,18 +2,17 @@ package yi.letlangproj.exp;
 
 import yi.letlangproj.Environment;
 import yi.letlangproj.Expression;
-import yi.letlangproj.HavingArgs;
 
 import java.util.HashMap;
+import java.util.stream.IntStream;
 
 /**
  * @author sky91 - feitiandaxia1991@163.com
  */
-public class RuntimeClosureExpression implements Expression, HavingArgs {
+public class RuntimeClosureExpression implements Expression {
     private final Environment closureEnvironment;
     private final Expression originExpression;
     private final String[] argNames;
-    private final HashMap<String, Expression> argMap = new HashMap<>();
 
     public RuntimeClosureExpression(Environment closureEnvironment, Expression originExpression, String[] argNames) {
         this.closureEnvironment = closureEnvironment;
@@ -23,16 +22,8 @@ public class RuntimeClosureExpression implements Expression, HavingArgs {
 
     @Override
     public int evaluate(Environment environment) {
+        HashMap<String, Expression> argMap = new HashMap<>();
+        IntStream.range(0, argNames.length).forEach(i -> argMap.put(argNames[i], environment.get(String.valueOf(i))));
         return originExpression.evaluate(new Environment(argMap, closureEnvironment));
-    }
-
-    @Override
-    public String[] getArgNames() {
-        return argNames;
-    }
-
-    @Override
-    public void setArg(String name, Expression valueExpression) {
-        argMap.put(name, valueExpression);
     }
 }
