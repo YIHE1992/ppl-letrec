@@ -6,9 +6,6 @@ import yi.letlangproj.Expression;
 import java.util.HashMap;
 import java.util.stream.IntStream;
 
-/**
- * @author sky91 - feitiandaxia1991@163.com
- */
 public class FunctionCallExpression implements Expression {
     private final String functionName;
     private final Expression[] args;

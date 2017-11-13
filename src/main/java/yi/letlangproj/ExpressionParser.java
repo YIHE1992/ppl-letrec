@@ -2,9 +2,6 @@ package yi.letlangproj;
 
 import java.util.List;
 
-/**
- * @author sky91 - feitiandaxia1991@163.com
- */
 public interface ExpressionParser {
     /**
      * parse token list to expression

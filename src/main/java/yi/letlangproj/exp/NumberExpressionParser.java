@@ -9,9 +9,6 @@ import java.util.List;
 import static yi.letlangproj.Parser.expectToken;
 import static yi.letlangproj.TokenType.INT;
 
-/**
- * @author sky91 - feitiandaxia1991@163.com
- */
 public class NumberExpressionParser implements ExpressionParser {
     @Override
     public ParseResult parse(List<Token> tokenList) throws ParseException {

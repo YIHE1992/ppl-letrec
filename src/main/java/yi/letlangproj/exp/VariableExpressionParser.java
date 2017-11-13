@@ -9,9 +9,6 @@ import java.util.List;
 
 import static yi.letlangproj.TokenType.IDENTIFIER;
 
-/**
- * @author sky91 - feitiandaxia1991@163.com
- */
 public class VariableExpressionParser implements ExpressionParser {
     @Override
     public ParseResult parse(List<Token> tokenList) throws ParseException {
