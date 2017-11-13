@@ -9,13 +9,15 @@ import java.util.List;
  * @author sky91 - feitiandaxia1991@163.com
  */
 public class Parser {
-    private static final ExpressionParser[] registeredExpressionParser = {new DiffExpressionParser(),
-                                                                          new IfExpressionParser(),
+    private static final ExpressionParser[] registeredExpressionParser = {new IfExpressionParser(),
                                                                           new IsZeroExpressionParser(),
+                                                                          new LetRecExpressionParser(),
                                                                           new LetExpressionParser(),
                                                                           new FunctionCallExpressionParser(),
                                                                           new NumberExpressionParser(),
-                                                                          new VariableExpressionParser(),};
+                                                                          new VariableExpressionParser(),
+                                                                          new DiffExpressionParser(),
+                                                                          new AddExpressionParser(),};
 
     public static ParseResult parseToExpression(List<Token> tokenList) throws ParseException {
         for(ExpressionParser parser : registeredExpressionParser) {

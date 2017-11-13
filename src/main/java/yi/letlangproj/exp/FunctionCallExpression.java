@@ -22,7 +22,7 @@ public class FunctionCallExpression implements Expression {
     public int evaluate(Environment environment) {
         Expression closureExpression = environment.get(functionName);
         HashMap<String, Expression> argMap = new HashMap<>();
-        IntStream.range(0, args.length).forEach(i -> argMap.put(String.valueOf(i), args[i]));
+        IntStream.range(0, args.length).forEach(i -> argMap.put(String.valueOf(i), new NumberExpression(args[i].evaluate(environment))));
         return closureExpression.evaluate(new Environment(argMap));
     }
 }

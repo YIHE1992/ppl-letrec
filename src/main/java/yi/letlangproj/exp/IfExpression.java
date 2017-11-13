@@ -7,8 +7,18 @@ import yi.letlangproj.Expression;
  * @author sky91 - feitiandaxia1991@163.com
  */
 public class IfExpression implements Expression {
+    private final Expression conditionExpression;
+    private final Expression trueExpression;
+    private final Expression falseExpression;
+
+    public IfExpression(Expression conditionExpression, Expression trueExpression, Expression falseExpression) {
+        this.conditionExpression = conditionExpression;
+        this.trueExpression = trueExpression;
+        this.falseExpression = falseExpression;
+    }
+
     @Override
     public int evaluate(Environment environment) {
-        return 0;
+        return conditionExpression.evaluate(environment) != 0 ? trueExpression.evaluate(environment) : falseExpression.evaluate(environment);
     }
 }

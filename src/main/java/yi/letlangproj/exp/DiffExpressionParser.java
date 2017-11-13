@@ -20,11 +20,11 @@ public class DiffExpressionParser implements ExpressionParser {
         try {
             expectToken(t, MINUS);
             t = t.subList(1, t.size());
-            expectToken(t, LEFT_PARENTHESIS);
-            t = t.subList(1, t.size());
         } catch(ParseException e) {
             return null;
         }
+        expectToken(t, LEFT_PARENTHESIS);
+        t = t.subList(1, t.size());
         ParseResult expression0ParseResult = parseToExpression(t);
         t = t.subList(expression0ParseResult.getTokenLength(), t.size());
         expectToken(t, COMMA);
