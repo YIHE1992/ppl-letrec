@@ -5,9 +5,6 @@ import yi.letlangproj.exp.*;
 
 import java.util.List;
 
-/**
- * @author sky91 - feitiandaxia1991@163.com
- */
 public class Parser {
     private static final ExpressionParser[] registeredExpressionParser = {new IfExpressionParser(),
                                                                           new IsZeroExpressionParser(),
