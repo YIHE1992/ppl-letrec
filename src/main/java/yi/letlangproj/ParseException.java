@@ -1,8 +1,5 @@
 package yi.letlangproj;
 
-/**
- * @author sky91 - feitiandaxia1991@163.com
- */
 public class ParseException extends Exception {
     public ParseException() {
     }

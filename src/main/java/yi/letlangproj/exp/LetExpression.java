@@ -5,9 +5,6 @@ import yi.letlangproj.Expression;
 
 import java.util.HashMap;
 
-/**
- * @author sky91 - feitiandaxia1991@163.com
- */
 public class LetExpression implements Expression {
     private final String varName;
     private final String[] argNames;

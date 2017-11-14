@@ -13,6 +13,7 @@ public class Parser {
                                                                           new IsZeroExpressionParser(),
                                                                           new LetRecExpressionParser(),
                                                                           new LetExpressionParser(),
+                                                                          new LetRecExpressionParser(),
                                                                           new FunctionCallExpressionParser(),
                                                                           new NumberExpressionParser(),
                                                                           new VariableExpressionParser(),

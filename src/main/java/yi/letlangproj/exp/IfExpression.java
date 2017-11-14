@@ -3,9 +3,6 @@ package yi.letlangproj.exp;
 import yi.letlangproj.Environment;
 import yi.letlangproj.Expression;
 
-/**
- * @author sky91 - feitiandaxia1991@163.com
- */
 public class IfExpression implements Expression {
     private final Expression conditionExpression;
     private final Expression trueExpression;
@@ -22,3 +19,5 @@ public class IfExpression implements Expression {
         return conditionExpression.evaluate(environment) != 0 ? trueExpression.evaluate(environment) : falseExpression.evaluate(environment);
     }
 }
+
+

@@ -3,9 +3,6 @@ package yi.letlangproj.exp;
 import yi.letlangproj.Environment;
 import yi.letlangproj.Expression;
 
-/**
- * @author sky91 - feitiandaxia1991@163.com
- */
 public class AddExpression implements Expression {
     private final Expression e0;
     private final Expression e1;
@@ -18,5 +15,10 @@ public class AddExpression implements Expression {
     @Override
     public int evaluate(Environment environment) {
         return e0.evaluate(environment) + e1.evaluate(environment);
+    }
+
+    @Override
+    public String toString(){
+        return "add-exp (" + e0 + e1 + ")";
     }
 }

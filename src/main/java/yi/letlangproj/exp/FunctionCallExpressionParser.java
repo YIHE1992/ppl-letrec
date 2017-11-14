@@ -12,9 +12,6 @@ import static yi.letlangproj.Parser.expectToken;
 import static yi.letlangproj.Parser.parseToExpression;
 import static yi.letlangproj.TokenType.*;
 
-/**
- * @author sky91 - feitiandaxia1991@163.com
- */
 public class FunctionCallExpressionParser implements ExpressionParser {
     @Override
     public ParseResult parse(List<Token> tokenList) throws ParseException {

@@ -29,6 +29,8 @@ public class Scanner {
                     if(tokenType != WHITE_SPACE) {
                         tokenList.add(new Token(tokenType, matchedString));
                     }
+                    for (int i = 0; i < tokenList.size(); i++)
+                        System.out.println(tokenList.get(i));
                     continue outer;
                 }
             }
